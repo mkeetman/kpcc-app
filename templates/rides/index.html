@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>KPCC Ride Scheduling Helper</title>
+</head>
+<body>
+    <h1>KPCC Ride Scheduling Helper</h1>
+    <ul>
+        {% for ride in rides %}
+            <li><a href="{% url 'rides:cancel' ride.id%}">{{ride.ride_date}} {{ride.ride_destination}}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
