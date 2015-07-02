@@ -19,4 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^rides/', include('rides.urls', namespace='rides')),
     url(r'^admin/', include(admin.site.urls)),
+    url('^', include('django.contrib.auth.urls')),
 ]

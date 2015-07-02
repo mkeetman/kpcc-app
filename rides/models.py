@@ -36,8 +36,7 @@ class Rides(models.Model):
     )
 
     def __str__(self):
-        return str(self.ride_date) + ': ' + self.ride_destination + ' (' + self.ride_leader_a.name + ', ' + \
-               self.ride_leader_b.name + ')'
+        return str(self.ride_date) + ': ' + self.ride_destination
 
     ride_leader_a = models.ForeignKey(RideLeader, related_name='RideLeaderA', verbose_name='Ride Leader')
     ride_leader_b = models.ForeignKey(RideLeader,

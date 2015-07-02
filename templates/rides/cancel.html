@@ -1,10 +1,49 @@
 <!DOCTYPE html>
+{% load humanize %}
 <html>
+
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>KPCC Ride Schedule Helper: Cancel a Ride</title>
+    <!-- Bootstrap CSS resources -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!--    jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-    {{rides.ride_destination}}
+    <div class="container">
+        <h1>{{ rides.ride_date|naturalday|title }}'s Ride</h1>
+        <table class="table-striped">
+            <tr><td>Date</td><td>{{rides.ride_date}}</td></tr>
+            <tr><td>Destination</td><td>{{rides.ride_destination}}</td></tr>
+            <tr><td>Ride Leaders</td><td>{{rides.ride_leader_a.name}}, {{rides.ride_leader_b.name}}</td></tr>
+
+        </table>
+        <div class="form-group">
+            <form action="{% url 'rides:cancel_ride' rides.id %}" method="post">
+                {% csrf_token %}
+                {% for cancellation in cancellations %}
+                    <div class="radio">
+                        <label><input type="radio" name="cancel_reason" id="cancel{{ cancellation.id }}" value="{{ cancellation.id}}">
+                        {{ cancellation.reason }}</label></div>
+                {% endfor %}
+                <button type="submit" class="btn btn-danger">Cancel</button>
+
+            </form>
+        </div>
+        {% if rides.ride_cancelled != None %}
+        <div class="form-group">
+            <form action="{% url 'rides:un-cancel_ride' rides.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">Un-Cancel</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>
