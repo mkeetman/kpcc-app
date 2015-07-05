@@ -2,16 +2,19 @@
 
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class RideLeader(models.Model):
 
     def __str__(self):
-        return self.name
+        return self.user.first_name + ' ' + self.user.last_name
 
-    name = models.CharField(max_length=50)
+    #name = models.CharField(max_length=50)
     shortname = models.CharField(max_length=20, blank=True)
+    phonenumber = models.CharField(max_length=10, blank=True)
+    user = models.OneToOneField(User)
 
 class RideCancellations(models.Model):
 
@@ -38,8 +41,8 @@ class Rides(models.Model):
     def __str__(self):
         return str(self.ride_date) + ': ' + self.ride_destination
 
-    ride_leader_a = models.ForeignKey(RideLeader, related_name='RideLeaderA', verbose_name='Ride Leader')
-    ride_leader_b = models.ForeignKey(RideLeader,
+    ride_leader_a = models.ForeignKey(User, related_name='RideLeaderA', verbose_name='Ride Leader')
+    ride_leader_b = models.ForeignKey(User,
                                       related_name='RideLeaderB',
                                       verbose_name='Secondary Ride Leader',
                                       null=True, blank=True)
@@ -53,5 +56,5 @@ class Rides(models.Model):
     ride_expected_length = models.FloatField(null=True, blank=True, verbose_name='Expected Ride Length')
     ride_cancelled = models.DateTimeField('Cancellation Date & Time', null=True, blank=True)
     ride_cancel_reason = models.ForeignKey(RideCancellations, null=True, blank=True)
-    ride_cancelled_by = models.ForeignKey(RideLeader, related_name='RideCanceller', null=True, blank=True)
+    ride_cancelled_by = models.ForeignKey(User, related_name='RideCanceller', null=True, blank=True)
 

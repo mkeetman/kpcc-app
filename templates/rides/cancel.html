@@ -1,28 +1,11 @@
-<!DOCTYPE html>
+{% extends "rides/base.html" %}
+{% block curnavpage %}<li><a href="#" class="active">Cancel Ride</a></li>{% endblock %}
+{% block content %}
 {% load humanize %}
-<html>
-
-<head lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>KPCC Ride Schedule Helper: Cancel a Ride</title>
-    <!-- Bootstrap CSS resources -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <!--    jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-</head>
-<body>
-    <div class="container">
         <h1>{{ rides.ride_date|naturalday|title }}'s Ride</h1>
         <table class="table-striped">
             <tr><td>Date</td><td>{{rides.ride_date}}</td></tr>
             <tr><td>Destination</td><td>{{rides.ride_destination}}</td></tr>
-            <tr><td>Ride Leaders</td><td>{{rides.ride_leader_a.name}}, {{rides.ride_leader_b.name}}</td></tr>
-
         </table>
         <div class="form-group">
             <form action="{% url 'rides:cancel_ride' rides.id %}" method="post">
@@ -44,6 +27,5 @@
             </form>
         </div>
         {% endif %}
-    </div>
-</body>
-</html>
+
+{% endblock %}

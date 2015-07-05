@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KPCC Ride Scheduling Helper</title>
+    <!-- Bootstrap CSS resources -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!--    jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <!--<img src="{% static 'KPlogo.jpg' %}" alt="Kangaroo Point Cycling Club" class="img-responsigve">-->
+    {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+        <p>Your account doesn't have access to this page. To proceed,
+            please login with an account that has access.</p>
+        {% else %}
+            <p>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
+
+    <form method="post" action="{% url 'django.contrib.auth.views.login' %}" class="form-signin">
+        {% csrf_token %}
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="{{ form.username.id_for_label }}" class="sr-only" >Username</label>
+        <input type="text" id="{{ form.username.id_for_label }}"
+               name="{{ form.username.html_name }}" class="form-control" placeholder="Username" requried autofocus>
+        <label for="{{ form.password.id_for_label }}" class="sr-only">Password</label>
+        <input type="password" id="{{ form.password.id_for_label }}"
+               name="{{ form.password.html_name }}" class="form-control" placeholder="Password" required>
+
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <input type="hidden" name="next" value="{{ next }}"/>
+    </form>
+
+</div>
+<!-- /container -->
+
+</body>
+</html>

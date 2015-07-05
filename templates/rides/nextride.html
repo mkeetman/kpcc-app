@@ -1,0 +1,10 @@
+<!-- Return HTML to be inserted onto the kpcc.org.au webpage -->
+<!-- TODO make this better, and not dumb  (investigate AngularJS or similar? -->
+{% if nextride %}
+    <div style="border-style:dashed; border-width: 2px; padding:10px">
+        <h3 style="text-align:center">Sorry, the next ride is cancelled</h3>
+    </div>
+
+{% else %}
+    <!-- no ride to show -->
+{% endif %}

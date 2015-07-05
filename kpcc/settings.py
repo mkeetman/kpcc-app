@@ -39,7 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'rides',
-    'schedule',
+    #'schedule',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -54,6 +54,8 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'kpcc.urls'
+LOGIN_URL = '/login/'
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 365 # One Year
 
 TEMPLATES = [
     {
