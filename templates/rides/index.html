@@ -4,9 +4,9 @@
 <h1>KPCC Rides Helper</h1>
     <ul class="nav nav-pills nav-stacked">
         {% for ride in rides %}
-            <li {% if forloop.first %} class="active" {% endif %}>
+            <li  class="{% if ride.ride_cancelled != None %} cancelled {% else %} ok {% endif %}" >
                 <a href="{% url 'rides:cancel_detail' ride.id%}">{{ ride.ride_date|naturalday|title }}: {{ride.ride_destination}}
-                    {% if ride.ride_cancelled != None %}(Cancelled by {{ ride.ride_cancelled_by.username }}) {% endif %}
+                    {% if ride.ride_cancelled != None %}(cancelled by {{ ride.ride_cancelled_by.username }}) {% endif %}
                 </a></li>
         {% endfor %}
     </ul>

@@ -1,10 +1,12 @@
 <!-- Return HTML to be inserted onto the kpcc.org.au webpage -->
 <!-- TODO make this better, and not dumb  (investigate AngularJS or similar? -->
-{% if nextride %}
-    <div style="border-style:dashed; border-width: 2px; padding:10px">
-        <h3 style="text-align:center">Sorry, the next ride is cancelled</h3>
+{% if rides.0.ride_cancelled != None %}
+    <div style="border-style:dashed; border-width: 2px; padding: 4px; text-align:center">
+        <b>The next club ride has been cancelled </b><em>({{ rides.0.ride_destination }} at {{ rides.0.ride_date }})</em><br>
+        The next scheduled ride is {{ rides.1.ride_destination }} at {{ rides.1.ride_date }}
     </div>
 
-{% else %}
-    <!-- no ride to show -->
+{% elif rides.0.ride_cancelled == None %}
+    {{ rides }}
+    <!-- no ride to show - RIde hasn't been cancelled-->
 {% endif %}

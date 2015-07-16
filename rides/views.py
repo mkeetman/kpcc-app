@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.utils.decorators import method_decorator
@@ -57,23 +57,29 @@ def uncancel_ride(request, pk):
 # We only want a response here if the following is true:
 #
 def next_ride(request):
-    r = Rides.objects.filter(ride_date__gte=timezone.now()).order_by('ride_date')[0]
 
-    if r.ride_cancelled != None:
-        message_start = r.ride_date - timedelta(hours=12)
-        message_end = r.ride_date + timedelta(hours=3)
+    # TODO we potentially need to cater for multiple rides (e.g. track and tuesday ride)
+    query_start = timezone.now() - timedelta(hours=3)
+    query_end = timezone.now() + timedelta(days=1)
 
-        context = {'nextride': r,
+    r = Rides.objects.filter(ride_date__gte=query_start
+                             ).filter(ride_date__lte=query_end).order_by('ride_date')[:2]
+
+    if r[0].ride_cancelled is None:
+        message_start = r[0].ride_date - timedelta(hours=12)
+        message_end = r[0].ride_date + timedelta(hours=3)
+
+        context = {'rides': r,
                    'start': message_start,
                    'end': message_end
                    }
-        #return render(request, 'rides/nextride.html', context)
+        # return render(request, 'rides/nextride.html', context)
 
         if message_start < timezone.now() < message_end:
-        #    context = {'nextride': r}
+            # context = {'nextride': r}
             return render(request, 'rides/nextride.html', context)
 
-    context = {'nextride': r}
+    context = {'rides': r}
     return render(request, 'rides/nextride.html', context)
 
 

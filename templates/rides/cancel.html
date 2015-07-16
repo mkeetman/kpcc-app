@@ -1,5 +1,5 @@
 {% extends "rides/base.html" %}
-{% block curnavpage %}<li><a href="#" class="active">Cancel Ride</a></li>{% endblock %}
+{% comment %}{% block curnavpage %}<li><a href="#" class="active">Cancel Ride</a></li>{% endblock %}{% endcomment %}
 {% block content %}
 {% load humanize %}
         <h1>{{ rides.ride_date|naturalday|title }}'s Ride</h1>
