@@ -2,11 +2,11 @@
 <!-- TODO make this better, and not dumb  (investigate AngularJS or similar? -->
 {% if rides.0.ride_cancelled != None %}
     <div style="border-style:dashed; border-width: 2px; padding: 4px; text-align:center">
-        <b>The next club ride has been cancelled </b><em>({{ rides.0.ride_destination }} at {{ rides.0.ride_date }})</em><br>
-        The next scheduled ride is {{ rides.1.ride_destination }} at {{ rides.1.ride_date }}
+        <b>THE NEXT CLUB RIDE HAS BEEN CANCELLED </b><em>({{ rides.0.ride_destination }} at {{ rides.0.ride_date }})</em><br>
+        {% if rides.1 %}The next scheduled ride is {{ rides.1.ride_destination }} at {{ rides.1.ride_date }}{% endif %}
     </div>
 
 {% elif rides.0.ride_cancelled == None %}
-    {{ rides }}
-    <!-- no ride to show - RIde hasn't been cancelled-->
+
+    <!-- no ride to show - Ride hasn't been cancelled-->
 {% endif %}

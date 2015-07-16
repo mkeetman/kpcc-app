@@ -53,9 +53,9 @@
                     {% endif %}
                 </ul>
                 {% if request.user.is_authenticated %}
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="active">{{ request.user.username }}</li>
-                </ul>
+                <p class="navbar-text navbar-right">
+                    {{ request.user.username }}
+                </p>
                 {% endif %}
             </div>
         </div>
