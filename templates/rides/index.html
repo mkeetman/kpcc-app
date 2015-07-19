@@ -2,12 +2,55 @@
 {% block content %}
 {% load humanize %}
 <h1>KPCC Rides Helper</h1>
+    {% if not user.is_authenticated %}
     <ul class="nav nav-pills nav-stacked">
         {% for ride in rides %}
             <li  class="{% if ride.ride_cancelled != None %} cancelled {% else %} ok {% endif %}" >
-                <a href="{% url 'rides:cancel_detail' ride.id%}">{{ ride.ride_date|naturalday|title }}: {{ride.ride_destination}}
+                <a href="{% url 'login' %}?next={{ request.path }}">{{ ride.ride_date|naturalday|title }}: {{ride.ride_destination}}
                     {% if ride.ride_cancelled != None %}(cancelled by {{ ride.ride_cancelled_by.username }}) {% endif %}
                 </a></li>
         {% endfor %}
     </ul>
+    {% else %}
+        <div class="accordion" id="accordion">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                {% for ride in rides %}
+              <div class="panel panel-default">
+                <div class="panel-heading {% if ride.ride_cancelled != None %} cancelled {% else %} ok {% endif %}" role="tab" id="heading{{ ride.id }}">
+                  <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ ride.id }}" aria-expanded="true" aria-controls="collapse{{ ride.id }}">
+                      {{ ride.ride_date|naturalday|title }}: {{ride.ride_destination}}
+                    {% if ride.ride_cancelled != None %}(cancelled by {{ ride.ride_cancelled_by.username }}) {% endif %}
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapse{{ ride.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ ride.id }}">
+                  <div class="panel-body">
+                    <div class="form-group">
+                    {% if not ride.ride_cancelled %}
+                        <form action="{% url 'rides:cancel_ride' ride.id %}" method="post">
+                            {% csrf_token %}
+                            {% for cancellation in cancellations %}
+                                <div class="radio">
+                                    <label><input type="radio" name="cancel_reason" id="cancel{{ cancellation.id }}" value="{{ cancellation.id }}">
+                                    {{ cancellation.reason }}</label></div>
+                            {% endfor %}
+                            <button type="submit" class="btn btn-danger">Cancel</button>
+                        </form>
+                    </div>
+                    {% else %}
+                        <div class="form-group">
+                            <form action="{% url 'rides:un-cancel_ride' ride.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">Un-Cancel</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
