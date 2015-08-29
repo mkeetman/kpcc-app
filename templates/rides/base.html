@@ -63,6 +63,7 @@
                     {% if request.user.is_authenticated %}
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                     {% endif %}
+                    <li><a href="{% url 'rides:faq' %}">FAQ</a></li>
                 </ul>
                 {% if request.user.is_authenticated %}
                 <p class="navbar-text navbar-right">

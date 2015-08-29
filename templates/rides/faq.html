@@ -1,0 +1,75 @@
+{% extends "rides/base.html" %}
+{% comment %}{% block curnavpage %}<li><a href="#" class="active">FAQ</a></li>{% endblock %}{% endcomment %}
+{% block content %}
+<h1>KPCC Ride Helper Frequently Asked Questions</h1>
+<div id="accordion" class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+		 <h4 class="panel-title">
+         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">What is the purpose of this Web App?</a>
+		 </h4>
+	</div>
+	<div id="collapseOne" class="panel-collapse collapse">
+		<div class="panel-body">
+			<p>This Web App was written to enable KPCC Captains and Ride Leaders to quickly and easily advertise the status of club sanctioned rides</p>
+		</div>
+	</div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+		 <h4 class="panel-title">
+         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">How do I cancel a ride?</a>
+		 </h4>
+	</div>
+	<div id="collapseTwo" class="panel-collapse collapse">
+		<div class="panel-body">
+			<p>Follow these steps:</p>
+			<ol>
+				<li>Click on the ride you wish to cancel</li>
+				<li>If you haven't used the Web App before, it will ask you to login.  Use the credentials you have been supplied and click "Sign in".  You will need to click on the ride you wish to cancel again</li>
+				<li>Click the red <button  class="btn btn-danger">Cancel</button> button</li>
+				<li>The ride should now show up highlighted in red with a message noting who cancelled the ride</li>
+			</ol>
+				
+				
+		</div>
+	</div>
+   </div>	
+   <div class="panel panel-default">
+    <div class="panel-heading">
+		 <h4 class="panel-title">
+         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">How do I un-cancel a ride?</a>
+		 </h4>
+	</div>
+	<div id="collapseThree" class="panel-collapse collapse">
+		<div class="panel-body">
+			<p>Follow these steps:</p>
+			<ol>
+				<li>Click on the ride you wish to un-cancel</li>
+				<li>Click the green <button class="btn btn-success">Un-Cancel</button> button</li>
+				<li>The ride should now show up highlighted in green</li>
+			</ol>
+				
+				
+		</div>
+	</div>
+   </div>	
+      <div class="panel panel-default">
+    <div class="panel-heading">
+		 <h4 class="panel-title">
+         <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">What happens when I cancel a ride?</a>
+		 </h4>
+	</div>
+	<div id="collapseFour" class="panel-collapse collapse">
+		<div class="panel-body">
+			<p>When our members check the status of a ride on the front page of the KPCC website, a message is shown directly below the banner at the top of the page.  This message is timed to appear 12hrs prior to the scheduled start of a ride, and dissapear 4hrs after the scheduled start.  This means if the weather isn't looking good for the next morning's ride, you can cancel it before you head to bed!</p>
+            <p>This message will look similar to this:</p>
+            <div style="border-style:dashed; border-width: 2px; padding: 4px; text-align:center">
+        <b>The next club ride has been cancelled </b><em>(Sunday Ride at 6:30am)</em><br>
+        The next scheduled ride is Monday Night Track at 6:30pm on Monday
+    </div>
+		</div>
+	</div>
+   </div>
+</div>
+{% endblock %}

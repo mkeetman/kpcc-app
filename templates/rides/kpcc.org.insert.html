@@ -1,0 +1,26 @@
+<!-- Included in "Page Settings" > "Advanced":
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+    -->
+
+
+<div id="message">
+  
+</div>
+<script>
+(function() {
+
+  // What JSON do you want to get? Note: If you're making a request from your own domain to your own domain, delete &callback=?.
+  var url = 'http://kpcc-dev.ext.keetman.org/rides/nextride/status/';
+
+  $.get(url).done(function(data) { // Adds the JSON to the data variable.
+
+    // Create the HTML string.
+    var messageContent = data;
+	
+    // Set the HTML.
+    document.getElementById('message').innerHTML = messageContent;
+
+  });
+
+})();
+</script>

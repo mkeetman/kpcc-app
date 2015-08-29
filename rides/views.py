@@ -26,6 +26,9 @@ class CancelRideDetail(generic.DetailView):
     def dispatch(self, *args, **kwargs):
         return super(CancelRideDetail, self).dispatch(*args, **kwargs)
 
+def faq(request):
+    return render(request, 'rides/faq.html')
+
 @login_required()
 def cancel_ride(request, pk):
     r = get_object_or_404(Rides, pk=pk)
